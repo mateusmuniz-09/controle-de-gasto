@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/styles/global-css.css" />
+    <link rel="stylesheet" href="/styles/home.css" />
+    <title>home</title>
+  </head>
+  <body>
+    <header>
+      <p class="logo">LOGO</p>
+      <button type="button" onclick="logout()">Sair</button>
+    </header>
+
+    <ol id="trasactions"></ol>
+    <button
+      type="button"
+      class="fab fixed bottom right"
+      onclick="newTransaction()"
+    >
+      +
+    </button>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="/script/firebase-init.js"></script>
+    <script src="/script/auth-guard.js"></script>
+    <script src="/script/loading.js"></script>
+    <script src="/script/home.js"></script>
+  </body>
+</html>

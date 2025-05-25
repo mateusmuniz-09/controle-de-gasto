@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="styles/global-css.css">
+    <script src="script/scripts.js" defer></script>
+    <script src="script/loading.js" defer></script>
+    <script src="script/validation.js" defer></script>
+    <title>Login - Controle de gastos</title>
+  </head>
+  <body class="centralize">
+    <form>
+      <h2>Bem-vindo</h2>
+      <label for="email">Email</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Digite seu email"
+        onchange="validateChangeEmails()"
+      />
+      <p class="error" id="email-invalide">Email inválido</p>
+      <p class="error" id="email-required">Email é obrigatório</p>
+      <label for="senha">Senha</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Digite sua senha"
+        onchange="validateChangePassword()"
+      />
+      <p class="error" id="senha-required">Senha é obrigatória</p>
+      <button type="button" disabled="true" id="entrar" onclick="login()">Entrar</button>
+      <button type="button"  onclick="registration()" >Registrar</button>
+
+      <div class="buttons">
+        <button type="button" class="recuperar-senha" disabled="true" id="recuperar-senha" onclick="recoverPassword()">Esqueceu a senha ?</button>
+    </form>
+
+
+    <script src="https://www.gstatic.com/firebasejs/11.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.8.0/firebase-auth-compat.js"></script>
+    <script src="script/firebase-init.js"></script>
+  </body>
+</html>

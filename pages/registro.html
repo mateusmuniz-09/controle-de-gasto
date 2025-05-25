@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/registro.css" />
+    <link rel="stylesheet" href="/styles/global-css.css" />
+
+    <script src="/script/firebase-init.js" defer></script>
+
+    <script src="/script/registro.js" defer></script>
+    <script src="/script/validation.js" defer></script>
+
+    <script src="/script/loading.js" defer></script>
+    <title>Registro</title>
+  </head>
+  <body class="centralize">
+    <form>
+      <label>Email</label>
+      <input
+        type="email"
+        placeholder="Digite sua email"
+        id="email"
+        onchange="onChangeEmail()"
+      />
+      <div class="error" id="email-required-error">Email é obrigatório</div>
+      <div class="error" id="email-invalid-error">Email é inválido</div>
+      <label>Senha</label>
+      <input
+        type="password"
+        placeholder="Senha"
+        id="password"
+        onchange="onChangePassword()"
+      />
+      <div class="error" id="password-required-error">Senha é obrigatória</div>
+      <div class="error" id="password-min-length-error">
+        Senha deve ter pelo menos 6 caracteres
+      </div>
+      <label>Confirmar senha</label>
+      <input
+        type="password"
+        placeholder="Confirme sua senha"
+        id="confirm-password"
+        onchange="onChangeConfirm()"
+      />
+      <div class="error" id="password-doesnt-match-error">
+        Senha e Confirmar senha devem ser iguais
+      </div>
+      <button
+        type="button"
+        class="solid"
+        id="regiter-button"
+        disabled="true"
+        onclick="register()"
+      >
+        Registrar
+      </button>
+
+      <button type="button" class="clear">Login</button>
+    </form>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  </body>
+</html>

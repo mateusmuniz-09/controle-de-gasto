@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adicionar transação</title>
+    <link rel="stylesheet" href="/styles/global-css.css" />
+    <link rel="stylesheet" href="/styles/transacoes.css" />
+  </head>
+  <body>
+    <header>
+      <button type="button" class="clear button-transaction" onclick="logout()">
+        Sair
+      </button>
+    </header>
+    <main class="centralize">
+      <form>
+        <label>Tipo de Transação</label>
+        <div class="type-transation">
+          <div>
+            <input type="radio" name="type" checked id="income" />
+            <label for="income">Entrada</label>
+          </div>
+          <div>
+            <input type="radio" name="type" id="expense" />
+            <label for="expense">Despesa</label>
+          </div>
+        </div>
+
+        <label>Forma de Pagamento *</label>
+        <select id="forma-de-pagamento">
+          <option value="Cartao">Cartão</option>
+          <option selected value="Pix">Pix</option>
+          <option selected value="Dinheiro">Dinheiro</option>
+        </select>
+
+        <label>Valor *</label>
+        <input type="number" id="value" onchange="onChangeValue()" />
+        <p class="error" id="value-required-error">Campo valor é obrigatório</p>
+        <p class="error" id="value-invalid-error">Valor inválido</p>
+
+        <label>Referência *</label>
+        <select onchange="onChangeSelect()" id="select">
+          <option value="">-- Selecione um tipo de transaçao --</option>
+          <option>Acomodação</option>
+          <option>Alimentaçao</option>
+          <option>Outros</option>
+          <option>Salário</option>
+          <option>Supermercado</option>
+          <option>Transporte</option>
+        </select>
+        <p class="error" id="select-required-error">
+          Campo referência é obrigatório
+        </p>
+
+        <label>Descrição</label>
+        <input type="text" / placeholder="Sua descrição" id="description">
+
+        <button
+          type="button"
+          class="solid"
+          disabled="true"
+          id="buttonAdd"
+          onclick="saveTransaction()"
+        >
+          Adicionar
+        </button>
+        <button type="button" class="clear">Cancelar</button>
+      </form>
+    </main>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script src="/script/firebase-init.js"></script>
+    <script src="/script/auth-guard.js"></script>
+    <script src="/script/loading.js"></script>
+    <script src="/script/transaction.js"></script>
+  </body>
+</html>

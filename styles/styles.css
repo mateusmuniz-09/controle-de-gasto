@@ -1,0 +1,20 @@
+h2 {
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.buttons {
+  width: 100%;
+}
+.buttons .recuperar-senha {
+  display: block;
+  color: #fff;
+  margin-top: 1rem;
+  text-align: center;
+  transition: 0.2s ease-in-out;
+  font-size: 13px;
+  box-shadow: none;
+  background: transparent;
+}
