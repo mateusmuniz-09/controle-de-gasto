@@ -161,3 +161,9 @@ button.fab.right {
   color: red;
   border-color: red;
 }
+h2 {
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-family: "Poppins", sans-serif;
+}

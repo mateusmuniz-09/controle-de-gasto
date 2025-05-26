@@ -10,15 +10,18 @@ function logout() {
     });
 }
 
-function newTransaction() {
-  window.location.href = "../pages/transacoes.html";
-}
-
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     findTransictions(user);
+  } else {
+    hideLoading();
+    window.location.href = "../index.html";
   }
 });
+
+function newTransaction() {
+  window.location.href = "../pages/transacoes.html";
+}
 
 function findTransictions(user) {
   showLoading();
