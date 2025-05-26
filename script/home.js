@@ -22,72 +22,70 @@ firebase.auth().onAuthStateChanged((user) => {
 
 function findTransictions(user) {
   showLoading();
-  firebase
-    .firestore()
-    .collection("transiction")
-    .where("user.uid", "==", user.uid)
-    .orderBy("hours", "desc")
-    .get()
-    .then((snapshot) => {
+  transactionService
+    .findByUser(user)
+    .then((transactions) => {
       hideLoading();
-      console.log(snapshot);
-      const transactions = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        uid: doc.id,
-      }));
       addTransictionsToScreen(transactions);
     })
     .catch((error) => {
       hideLoading();
-      console.log("Error", error);
-      alert("Erro ao recuperar transações");
+      console.log(error);
+      alert("Erro ao recuperar transacoes");
     });
 }
 
 function addTransictionsToScreen(transactions) {
   const ordenadList = document.getElementById("trasactions");
-  console.log(transactions);
   transactions.forEach((transaction) => {
-    const li = document.createElement("li");
-    li.classList.add(transaction.type);
-    li.id = transaction.uid;
+    const li = createTransactionListItem(transaction);
 
-    li.addEventListener("click", () => {
-      window.location.href = "../pages/transacoes.html?uid=" + transaction.uid;
-    });
+    li.appendChild(createDeleteButton(transaction));
 
-    const deleteButton = document.createElement("button");
-    deleteButton.innerHTML = "Remover";
-    deleteButton.classList.add("outline", "danger");
-    deleteButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      askRemoveTransaction(transaction);
-    });
-    li.appendChild(deleteButton);
+    li.appendChild(
+      createParagraph(formatdate(transaction.date) + " " + transaction.hours)
+    );
 
-    const data = document.createElement("b");
-    data.innerHTML = formatdate(transaction.date) + " " + transaction.hours;
-    li.appendChild(data);
-    const money = document.createElement("p");
-    money.innerHTML = formatMoney(transaction.money);
-    li.appendChild(money);
-    const formpag = document.createElement("p");
-    formpag.innerHTML = transaction.formaPagamento;
+    li.appendChild(createParagraph(formatMoney(transaction.money)));
 
-    li.appendChild(formpag);
+    li.appendChild(createParagraph(transaction.formaPagamento));
 
-    const typeTransaction = document.createElement("p");
-    typeTransaction.innerHTML = transaction.typeTransaction;
-    li.appendChild(typeTransaction);
+    li.appendChild(createParagraph(transaction.typeTransaction));
 
     if (transaction.description) {
-      const descr = document.createElement("p");
-      descr.innerHTML = transaction.description;
-      li.appendChild(descr);
+      li.appendChild(createParagraph(transaction.description));
     }
 
     ordenadList.appendChild(li);
   });
+}
+
+function createTransactionListItem(transaction) {
+  const li = document.createElement("li");
+  li.classList.add(transaction.type);
+  li.id = transaction.uid;
+
+  li.addEventListener("click", () => {
+    window.location.href = "../pages/transacoes.html?uid=" + transaction.uid;
+  });
+  return li;
+}
+
+function createDeleteButton(transaction) {
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = "Remover";
+  deleteButton.classList.add("outline", "danger");
+  deleteButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    askRemoveTransaction(transaction);
+  });
+  return deleteButton;
+}
+
+function createParagraph(value) {
+  const element = document.createElement("p");
+  element.innerHTML = value;
+  return element;
 }
 function askRemoveTransaction(transaction) {
   const shouldRemove = confirm("Deseja remover a transaçao?");
@@ -100,11 +98,8 @@ function askRemoveTransaction(transaction) {
 function removeTransaction(transaction) {
   showLoading();
 
-  firebase
-    .firestore()
-    .collection("transiction")
-    .doc(transaction.uid)
-    .delete()
+  transactionService
+    .remove(transaction)
     .then(() => {
       hideLoading();
       document.getElementById(transaction.uid).remove();

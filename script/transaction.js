@@ -14,15 +14,12 @@ function isNewTransaction() {
 
 function findTransictionsByUid(uid) {
   showLoading();
-  firebase
-    .firestore()
-    .collection("transiction")
-    .doc(uid)
-    .get()
-    .then((doc) => {
+  transactionService
+    .findByUid(uid)
+    .then((transaction) => {
       hideLoading();
-      if (doc.exists) {
-        fillTransactionScreen(doc.data());
+      if (transaction) {
+        fillTransactionScreen(transaction);
         toogleButtonSaveDisabled();
       } else {
         alert("Documento não encontrado");
@@ -63,10 +60,8 @@ function saveTransaction() {
 
 function save(transaction) {
   showLoading();
-  firebase
-    .firestore()
-    .collection("transiction")
-    .add(transaction)
+  transactionService
+    .save(transaction)
     .then(() => {
       hideLoading();
       window.location.href = "../pages/home.html";
@@ -79,10 +74,7 @@ function save(transaction) {
 
 function update(transaction) {
   showLoading();
-  firebase
-    .firestore()
-    .collection("transiction")
-    .doc(getTransactionUid())
+  transactionService
     .update(transaction)
     .then(() => {
       hideLoading();
