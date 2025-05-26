@@ -82,9 +82,11 @@ function messageError(error) {
 
 function registration() {
   showLoading();
-  window.location.href = "pages/registro.html";
+  setTimeout(() => {
+    hideLoading();
+    window.location.href = "pages/registro.html";
+  }, 1000);
 }
-
 function recoverPassword() {
   showLoading();
   firebase
