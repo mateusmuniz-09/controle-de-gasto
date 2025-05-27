@@ -25,7 +25,7 @@ ol li {
   transition: 0.3s;
 }
 ol li:hover {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 ol li.expense {
   border-left: 15px solid red;
@@ -38,11 +38,15 @@ p {
   margin: 4px 0;
 }
 ol li:hover button {
-  display: block;
+  background-color: #ff0000;
 }
 
 button.danger {
   width: auto;
   float: right;
-  display: none;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ff3131;
+  color: #fff;
 }
